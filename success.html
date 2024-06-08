@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success - Bless Gaming Store</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .success-header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .success-content {
+            margin: 20px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                email: params.get('email'),
+                gameId: params.get('gameId'),
+                paymentMethod: params.get('paymentMethod'),
+                amount: params.get('amount'),
+                price: params.get('price')
+            };
+        }
+
+        window.onload = function() {
+            const params = getQueryParams();
+            document.getElementById('email').innerText = params.email;
+            document.getElementById('gameId').innerText = params.gameId;
+            document.getElementById('paymentMethod').innerText = params.paymentMethod;
+            document.getElementById('topupAmount').innerText = params.amount;
+            document.getElementById('topupPrice').innerText = '$' + params.price;
+        };
+
+        // Function to display current date and time
+        function displayDateTime() {
+            var now = new Date();
+            var date = now.toLocaleDateString();
+            var time = now.toLocaleTimeString();
+            document.getElementById("datetime").innerText = date + " " + time;
+        }
+
+        // Call the function to initially display date and time
+        displayDateTime();
+
+        // Update date and time every second
+        setInterval(displayDateTime, 1000);
+    </script>
+</head>
+<body>
+    <div class="success-header">
+        <h1>Success!</h1>
+    </div>
+    <div class="success-content">
+        <p>Thank you for your purchase!</p>
+        <p>Your top up request is being processed.</p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>ID Game:</strong> <span id="gameId"></span></p>
+        <p><strong>Payment Method:</strong> <span id="paymentMethod"></span></p>
+        <p><strong>Top Up Amount:</strong> <span id="topupAmount"></span></p>
+        <p><strong>Price:</strong> <span id="topupPrice"></span></p>
+        <p id="datetime"></p> <!-- Date and time display -->
+        <button class="btn btn-primary" onclick="window.location.href='index.html'">Return to Home</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

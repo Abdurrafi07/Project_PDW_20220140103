@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Bless Gaming Store</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .checkout-header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .checkout-content {
+            margin: 20px;
+        }
+    </style>
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                game: params.get('game'),
+                amount: params.get('amount'),
+                price: params.get('price')
+            };
+        }
+
+        function showConfirmation() {
+            const email = document.getElementById('email').value;
+            const gameId = document.getElementById('gameId').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const gameName = document.getElementById('gameName').innerText;
+            const topupAmount = document.getElementById('topupAmount').innerText;
+            const topupPrice = document.getElementById('topupPrice').innerText;
+
+            const message = `Please confirm your details:\n
+                Email: ${email}\n
+                Game ID: ${gameId}\n
+                Payment Method: ${paymentMethod}\n
+                Game: ${gameName}\n
+                Top Up Amount: ${topupAmount}\n
+                Price: ${topupPrice}\n`;
+
+            return confirm(message);
+        }
+
+        window.onload = function() {
+            const params = getQueryParams();
+            const gameNames = {
+                'ABK': 'Arena Breakout',
+                'COD': 'Call of Duty: Mobile',
+                'FF': 'Free Fire',
+                'PUBG': 'PUBG Mobile',
+                'MLBB': 'Mobile Legends: Bang Bang'
+            };
+            document.getElementById('gameName').innerText = gameNames[params.game] || 'Unknown Game';
+            document.getElementById('topupAmount').innerText = params.amount;
+            document.getElementById('topupPrice').innerText = '$' + params.price;
+            document.getElementById('amountInput').value = params.amount;
+            document.getElementById('priceInput').value = params.price;
+            document.getElementById('gameInput').value = params.game;
+        };
+    </script>
+</head>
+<body>
+    <div class="checkout-header">
+        <h1>Checkout</h1>
+    </div>
+    <div class="checkout-content">
+        <p>Complete your purchase by filling out the form below:</p>
+        <form action="success.html" method="GET" onsubmit="return showConfirmation()">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="gameId">Game ID:</label>
+                <input type="text" class="form-control" id="gameId" name="gameId" required>
+            </div>
+            <div class="form-group">
+                <label for="paymentMethod">Payment Method:</label>
+                <select class="form-control" id="paymentMethod" name="paymentMethod">
+                    <option value="creditCard">Credit Card</option>
+                    <option value="qris">Qris</option>
+                    <option value="bankTransfer">Bank Transfer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <p>Game: <span id="gameName"></span></p>
+                <p>Top Up Amount: <span id="topupAmount"></span></p>
+                <p>Price: <span id="topupPrice"></span></p>
+            </div>
+            <input type="hidden" id="amountInput" name="amount">
+            <input type="hidden" id="priceInput" name="price">
+            <input type="hidden" id="gameInput" name="game">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
